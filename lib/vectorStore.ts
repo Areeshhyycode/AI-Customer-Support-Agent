@@ -67,17 +67,22 @@ const mongoStore: VectorStore = {
     ];
 
     try {
-      return await db
+      const results = await db
         .collection<DocumentChunk>(COLLECTIONS.chunks)
         .aggregate<SearchHit>(pipeline)
         .toArray();
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : String(err);
-      if (msg.includes("$vectorSearch") || msg.includes("index")) {
-        console.warn("Vector index not found, falling back to in-memory cosine search");
+      if (results.length === 0) {
+        console.warn(
+          "[vectorSearch] $vectorSearch returned 0 results — using in-memory fallback (index may not exist or be syncing)",
+        );
         return inMemoryFallback(embedding, k);
       }
-      throw err;
+      console.log(`[vectorSearch] $vectorSearch returned ${results.length} hits (top score: ${results[0]?.score?.toFixed(3)})`);
+      return results;
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      console.warn(`[vectorSearch] error: ${msg} — using in-memory fallback`);
+      return inMemoryFallback(embedding, k);
     }
   },
 
@@ -97,13 +102,19 @@ async function inMemoryFallback(
     .find({}, { projection: { text: 1, docName: 1, embedding: 1 } })
     .toArray();
 
+  console.log(`[vectorSearch] fallback scanning ${chunks.length} chunks`);
+
   const scored = chunks.map((c) => ({
     text: c.text,
     docName: c.docName,
     score: cosineSimilarity(queryEmbedding, c.embedding),
   }));
   scored.sort((a, b) => b.score - a.score);
-  return scored.slice(0, k);
+  const top = scored.slice(0, k);
+  if (top.length > 0) {
+    console.log(`[vectorSearch] fallback top score: ${top[0].score.toFixed(3)}`);
+  }
+  return top;
 }
 
 function cosineSimilarity(a: number[], b: number[]): number {

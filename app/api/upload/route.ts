@@ -3,7 +3,7 @@ import { randomUUID } from "crypto";
 import pdf from "pdf-parse";
 import { getDb, COLLECTIONS } from "@/lib/mongodb";
 import { chunkText } from "@/lib/chunker";
-import { embed } from "@/lib/embeddings";
+import { embedMany } from "@/lib/embeddings";
 import { getVectorStore, ChunkRecord } from "@/lib/vectorStore";
 import { UploadedDoc } from "@/lib/types";
 
@@ -61,17 +61,14 @@ export async function POST(req: NextRequest) {
     };
     await db.collection<UploadedDoc>(COLLECTIONS.documents).insertOne(docRecord);
 
-    const records: ChunkRecord[] = [];
-    for (let i = 0; i < chunks.length; i++) {
-      const embedding = await embed(chunks[i]);
-      records.push({
-        docId,
-        docName: name,
-        chunkIndex: i,
-        text: chunks[i],
-        embedding,
-      });
-    }
+    const embeddings = await embedMany(chunks);
+    const records: ChunkRecord[] = chunks.map((text, i) => ({
+      docId,
+      docName: name,
+      chunkIndex: i,
+      text,
+      embedding: embeddings[i],
+    }));
 
     const store = getVectorStore();
     await store.upsert(records);

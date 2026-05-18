@@ -1,5 +1,5 @@
-const DEFAULT_CHUNK_SIZE = 800;
-const DEFAULT_OVERLAP = 120;
+const DEFAULT_CHUNK_SIZE = 1500;
+const DEFAULT_OVERLAP = 150;
 
 export function chunkText(
   text: string,

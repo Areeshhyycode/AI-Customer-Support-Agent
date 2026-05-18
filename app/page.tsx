@@ -32,17 +32,6 @@ export default function Home() {
         </Link>
       </div>
 
-      <div className="mt-12 text-sm text-white/50">
-        <div className="font-semibold text-white/70 mb-2">Stack</div>
-        <ul className="grid grid-cols-2 sm:grid-cols-3 gap-1">
-          <li>• Next.js 14 (App Router)</li>
-          <li>• MongoDB Atlas Vector Search</li>
-          <li>• Groq (Llama 3.3 70B)</li>
-          <li>• @xenova/transformers (local embeddings)</li>
-          <li>• pdf-parse</li>
-          <li>• Tailwind CSS</li>
-        </ul>
-      </div>
     </div>
   );
 }

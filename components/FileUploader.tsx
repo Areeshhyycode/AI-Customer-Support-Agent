@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface UploadedDocSummary {
   docId: string;
@@ -20,6 +20,15 @@ export default function FileUploader({
   const [docs, setDocs] = useState<UploadedDocSummary[]>(initial);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [warmStatus, setWarmStatus] = useState<"idle" | "warming" | "ready">("idle");
+
+  useEffect(() => {
+    setWarmStatus("warming");
+    fetch("/api/warmup")
+      .then((r) => r.json())
+      .then(() => setWarmStatus("ready"))
+      .catch(() => setWarmStatus("idle"));
+  }, []);
 
   async function refresh() {
     const res = await fetch("/api/upload");
@@ -58,17 +67,36 @@ export default function FileUploader({
     <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4">
       <div className="flex items-center justify-between mb-3">
         <h2 className="font-semibold">Knowledge Base</h2>
-        <label className="cursor-pointer text-sm px-3 py-1.5 rounded-md bg-emerald-500 hover:bg-emerald-400 text-black font-medium">
-          {uploading ? "Uploading…" : "Upload PDF / TXT"}
-          <input
-            type="file"
-            accept=".pdf,.txt,.md"
-            onChange={handleUpload}
-            disabled={uploading}
-            className="hidden"
-          />
-        </label>
+        <div className="flex items-center gap-2">
+          {warmStatus === "warming" && (
+            <span className="text-xs text-amber-300">Loading model…</span>
+          )}
+          {warmStatus === "ready" && (
+            <span className="text-xs text-emerald-400">Model ready ✓</span>
+          )}
+          <label
+            className={`cursor-pointer text-sm px-3 py-1.5 rounded-md font-medium ${
+              uploading
+                ? "bg-amber-500/40 text-black"
+                : "bg-emerald-500 hover:bg-emerald-400 text-black"
+            }`}
+          >
+            {uploading ? "Processing…" : "Upload PDF / TXT"}
+            <input
+              type="file"
+              accept=".pdf,.txt,.md"
+              onChange={handleUpload}
+              disabled={uploading}
+              className="hidden"
+            />
+          </label>
+        </div>
       </div>
+      {warmStatus === "warming" && (
+        <div className="text-xs text-white/40 mb-2">
+          First-time setup: downloading embedding model (~25MB). This only happens once.
+        </div>
+      )}
       {error && <div className="text-sm text-red-400 mb-2">{error}</div>}
       {docs.length === 0 ? (
         <div className="text-sm text-white/40">

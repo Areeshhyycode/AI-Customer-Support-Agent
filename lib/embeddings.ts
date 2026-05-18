@@ -22,9 +22,18 @@ export async function embed(text: string): Promise<number[]> {
 }
 
 export async function embedMany(texts: string[]): Promise<number[][]> {
-  const out: number[][] = [];
-  for (const t of texts) {
-    out.push(await embed(t));
+  if (texts.length === 0) return [];
+  const extractor = await getExtractor();
+  const output = await extractor(texts, { pooling: "mean", normalize: true });
+  const flat = output.data as Float32Array;
+  const result: number[][] = [];
+  for (let i = 0; i < texts.length; i++) {
+    result.push(Array.from(flat.slice(i * EMBEDDING_DIM, (i + 1) * EMBEDDING_DIM)));
   }
-  return out;
+  return result;
+}
+
+export async function warmup(): Promise<void> {
+  await getExtractor();
+  await embed("warmup");
 }
