@@ -16,8 +16,13 @@ RAG-powered customer support assistant with PDF knowledge base, conversation mem
 - Chat answers grounded in your knowledge base (RAG)
 - Conversation memory persisted in MongoDB
 - Auto-ticket creation when AI lacks context or user asks for a human
+- **Admin authentication** — protected `/admin` route via NextAuth.js, customers cannot access
 - Admin panel: manage docs + tickets
 - **Pluggable vector store** — switch between MongoDB and Pinecone via one env var
+
+## Roles
+- **Customer** — visits `/chat`, asks questions. No login required.
+- **Admin** — signs in at `/login`, manages knowledge base + tickets at `/admin`.
 
 ---
 
@@ -101,6 +106,28 @@ PINECONE_INDEX_NAME=ai-support
 
 ---
 
+### 3c. Configure admin authentication
+
+Generate an `AUTH_SECRET` (random 32 bytes):
+```powershell
+node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+```
+
+Generate a bcrypt hash for the admin password:
+```powershell
+node -e "require('bcryptjs').hash('your-password-here', 10).then(console.log)"
+```
+
+Put both in `.env.local`:
+```env
+AUTH_SECRET=...the-random-string...
+NEXTAUTH_URL=http://localhost:3000
+ADMIN_EMAIL=admin@yourdomain.com
+ADMIN_PASSWORD_HASH=$2b$10$...the-bcrypt-hash...
+```
+
+> The default credentials in `.env.example` are `admin@acmeleather.pk` / `admin123`. **Change these** before deploying.
+
 ### 4. Run it
 ```powershell
 npm run dev
@@ -108,10 +135,11 @@ npm run dev
 Open http://localhost:3000
 
 ### 5. Use it
-1. Visit `/admin` → upload a PDF (e.g. your company FAQ)
-2. Visit `/chat` → ask questions about it
-3. Type "I want to talk to a human" → ticket is auto-created
-4. Back in `/admin` → manage ticket statuses
+1. Visit `/login` → sign in with the admin credentials from `.env.local`
+2. You'll be redirected to `/admin` → upload a PDF (e.g. your company FAQ)
+3. Visit `/chat` (no login needed for customers) → ask questions about it
+4. Type "I want to talk to a human" → ticket is auto-created
+5. Back in `/admin` → manage ticket statuses
 
 ---
 

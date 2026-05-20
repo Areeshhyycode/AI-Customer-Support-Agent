@@ -1,0 +1,55 @@
+DEMO QUERIES FOR VIDEO RECORDING
+
+Use these in your demo video. They cover different query types — perfect for showing the AI's range.
+
+---
+
+✅ DIRECT ANSWERS (AI should answer confidently from doc)
+
+1. What is your shipping policy?
+2. Do you ship to the UK?
+3. How can I track my order?
+4. What payment methods do you accept?
+5. What is your warranty policy?
+6. How do I care for leather products?
+7. Where is your office located?
+8. Do you offer gift wrapping?
+
+---
+
+🧠 SLIGHTLY HARDER (AI must combine info or infer)
+
+9. I'm in Karachi, when will my order arrive?
+10. Can I pay with cash if I'm ordering a wallet for PKR 3,000?
+11. I bought a belt 2 weeks ago and it has a defective buckle — what should I do?
+12. I want to order 30 wallets for my company employees, what's the discount?
+13. Do you have a store I can visit in Islamabad?
+
+---
+
+🙋 HANDOFF / TICKET TRIGGERS (info not in doc — should escalate)
+
+14. Who is the CEO of Acme Leather?
+15. Can I get a refund without a receipt?
+16. Do you make leather shoes? (not in product list)
+17. I want to talk to a human agent
+
+---
+
+💬 CONVERSATION MEMORY TEST (ask in order)
+
+18. What's your return policy?
+19. How long does it take?  ← AI should remember "return" from previous Q
+20. And what if I'm international?  ← AI should still be in return-policy context
+
+---
+
+🎬 RECOMMENDED VIDEO SEQUENCE (for 60-sec demo):
+
+1. "What is your shipping policy?" → shows working RAG
+2. "I'm in Karachi, when will my order arrive?" → shows AI inference
+3. "Who is your CEO?" → shows handoff + ticket creation
+4. "I want to talk to a human" → explicit escalation
+5. Then go to admin → show tickets created
+
+This sequence demos: retrieval, reasoning, handoff, and ticketing — the 4 core features.

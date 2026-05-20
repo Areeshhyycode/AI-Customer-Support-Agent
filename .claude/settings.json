@@ -4,7 +4,10 @@
       "Bash(npm -v)",
       "Bash(npx tsc *)",
       "Bash(npm run *)",
-      "Bash(curl -s -o /dev/null -w \"Status: %{http_code}\\\\n\" http://localhost:3001)"
+      "Bash(curl -s -o /dev/null -w \"Status: %{http_code}\\\\n\" http://localhost:3001)",
+      "Bash(git -c user.email=zerovlabs18@gmail.com -c user.name=Areesha commit -m ' *)",
+      "Bash(git branch *)",
+      "Bash(curl -s http://localhost:3001/api/upload)"
     ]
   }
 }

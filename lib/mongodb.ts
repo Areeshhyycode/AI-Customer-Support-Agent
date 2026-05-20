@@ -32,4 +32,5 @@ export const COLLECTIONS = {
   documents: "documents",
   conversations: "conversations",
   tickets: "tickets",
+  users: "users",
 } as const;

@@ -6,11 +6,22 @@ import { chunkText } from "@/lib/chunker";
 import { embedMany } from "@/lib/embeddings";
 import { getVectorStore, ChunkRecord } from "@/lib/vectorStore";
 import { UploadedDoc } from "@/lib/types";
+import { auth } from "@/auth";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
+async function requireAdmin() {
+  const session = await auth();
+  if (session?.user?.role !== "admin") {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  return null;
+}
+
 export async function POST(req: NextRequest) {
+  const unauth = await requireAdmin();
+  if (unauth) return unauth;
   try {
     const form = await req.formData();
     const file = form.get("file") as File | null;
@@ -103,6 +114,8 @@ export async function GET() {
 }
 
 export async function DELETE(req: NextRequest) {
+  const unauth = await requireAdmin();
+  if (unauth) return unauth;
   try {
     const { searchParams } = new URL(req.url);
     const docId = searchParams.get("docId");

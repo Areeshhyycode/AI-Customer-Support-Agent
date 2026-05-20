@@ -72,13 +72,13 @@ export default function FileUploader({
             <span className="text-xs text-amber-300">Loading model…</span>
           )}
           {warmStatus === "ready" && (
-            <span className="text-xs text-emerald-400">Model ready ✓</span>
+            <span className="text-xs text-amber-400">Model ready ✓</span>
           )}
           <label
             className={`cursor-pointer text-sm px-3 py-1.5 rounded-md font-medium ${
               uploading
                 ? "bg-amber-500/40 text-black"
-                : "bg-emerald-500 hover:bg-emerald-400 text-black"
+                : "bg-amber-500 hover:bg-amber-400 text-stone-950"
             }`}
           >
             {uploading ? "Processing…" : "Upload PDF / TXT"}
