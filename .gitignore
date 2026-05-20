@@ -23,7 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files — ignore everything except the example template
-.env*
 !.env.example
 
 # vercel
@@ -35,3 +34,4 @@ next-env.d.ts
 
 # uploads
 /uploads
+config.bat
