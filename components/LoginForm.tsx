@@ -28,7 +28,15 @@ export default function LoginForm() {
       if (res?.error) {
         setError("Invalid email or password");
       } else {
-        router.push(callbackUrl);
+        // send admins straight to the dashboard
+        let dest = callbackUrl;
+        try {
+          const s = await fetch("/api/auth/session").then((r) => r.json());
+          if (s?.user?.role === "admin") dest = "/admin";
+        } catch {
+          /* keep callbackUrl */
+        }
+        router.push(dest);
         router.refresh();
       }
     } catch {
