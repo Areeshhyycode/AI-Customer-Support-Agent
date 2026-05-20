@@ -145,15 +145,3 @@ export const PRODUCTS: Product[] = [
 export function formatPKR(amount: number): string {
   return "PKR " + amount.toLocaleString("en-PK");
 }
-
-const CATEGORY_GRADIENTS: Record<Product["category"], string> = {
-  Wallets: "from-amber-700/40 to-stone-900",
-  Belts: "from-orange-800/40 to-stone-900",
-  Bags: "from-yellow-800/40 to-stone-900",
-  Jackets: "from-amber-900/50 to-stone-900",
-  Accessories: "from-stone-600/40 to-stone-900",
-};
-
-export function categoryGradient(category: Product["category"]): string {
-  return CATEGORY_GRADIENTS[category];
-}

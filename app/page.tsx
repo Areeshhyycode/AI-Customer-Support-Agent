@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import ProductCard from "@/components/ProductCard";
 import { PRODUCTS, CATEGORIES } from "@/lib/products";
 
@@ -9,7 +10,14 @@ export default function Home() {
     <div>
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-white/10">
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-900/30 via-stone-950 to-stone-950" />
+        <Image
+          src="/img/hero.jpg"
+          alt="Leather craftsmanship"
+          fill
+          priority
+          className="object-cover opacity-30"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-stone-950/70 via-stone-950/85 to-stone-950" />
         <div className="relative max-w-6xl mx-auto px-4 py-20 sm:py-28">
           <p className="text-amber-500 text-sm tracking-[0.25em] uppercase mb-4">
             Handcrafted in Lahore · Since 2018
