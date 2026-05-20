@@ -1,0 +1,81 @@
+LINKEDIN POST — AI Customer Support Agent / Acme Leather Co.
+
+Replace [YOUR-VERCEL-URL] with your live link before posting.
+Tip: put the links in the FIRST COMMENT, not the post body — LinkedIn
+shows posts with external links to fewer people.
+
+================================================================
+MAIN POST (recommended)
+================================================================
+
+I built a full e-commerce store with a built-in AI customer support agent — and shipped it to production.
+
+Meet "Acme Leather Co." — a leather goods store where customers don't wait for support. They ask an AI assistant that answers from the company's actual help center, instantly, 24/7.
+
+What it does:
+→ Customers browse products, sign up, and shop
+→ A support chat answers questions from uploaded company docs (shipping, returns, warranty, pricing)
+→ When the AI isn't confident, it automatically creates a support ticket and hands off to a human
+→ Admins log into a separate dashboard to upload knowledge-base files and manage tickets
+
+The real lesson — production AI is mostly NOT the AI.
+
+I went in thinking the hard part would be the language model. It wasn't. The hard part was everything around it:
+
+1. RAG (Retrieval Augmented Generation) — the AI doesn't "know" the company. Documents are split into chunks, converted into 384-dimension embeddings, and stored in a vector database. At question time, the most relevant chunks are retrieved and fed to the model so it answers from real data instead of hallucinating.
+
+2. Authentication & roles — customers and admins are different people with different access. NextAuth handles sessions; the admin dashboard is locked behind a role check.
+
+3. Real deployment debugging — cold-start latency, an SSL handshake failure between the serverless host and the database, a third-party API that had changed its endpoint. None of this shows up in tutorials. All of it shows up in production.
+
+4. Knowing when to swap a component — local embeddings were re-downloading a 25MB model on every serverless cold start. Switching to a hosted embedding API took uploads from 30 seconds to under 2.
+
+Tech stack:
+• Next.js 14 (App Router, TypeScript)
+• MongoDB Atlas — database + vector search
+• Groq — Llama 3.3 70B for sub-second responses
+• Hugging Face Inference API — text embeddings
+• NextAuth — authentication
+• Deployed on Vercel
+
+Biggest takeaway: an "AI feature" is a data pipeline, an auth layer, a database, and a deployment story — with a model somewhere in the middle.
+
+🔗 Live demo: [YOUR-VERCEL-URL]
+🔗 Code: https://github.com/Areeshhyycode/AI-Customer-Support-Agent
+
+If you're learning AI development — build one project end to end, all the way to production. You learn more from one deployed app than from ten tutorials.
+
+What would you add to it? 👇
+
+#AI #RAG #NextJS #FullStackDevelopment #MongoDB #VectorDatabase
+#LLM #WebDevelopment #BuildInPublic #SoftwareEngineering
+
+
+================================================================
+SHORT VERSION (better if you post a demo video)
+================================================================
+
+I built and deployed a full e-commerce store with an AI customer support agent. 🤖
+
+"Acme Leather Co." — customers shop, and instead of waiting on support, they chat with an AI that answers from the company's real help docs. If the AI can't help, it auto-creates a ticket and hands off to a human.
+
+What I actually learned:
+→ RAG — grounding an LLM in real data so it stops hallucinating
+→ Embeddings + vector search — how machines "understand" similar text
+→ Auth & roles — separating customer and admin access
+→ Production reality — cold starts, SSL errors, swapping a slow component for a faster API
+
+Stack: Next.js 14 · MongoDB Atlas Vector Search · Groq (Llama 3.3 70B) · Hugging Face embeddings · NextAuth · Vercel
+
+An "AI feature" is 20% model and 80% engineering around it. That's the real lesson.
+
+Live demo + code in the comments 👇
+
+#AI #RAG #NextJS #FullStack #MongoDB #BuildInPublic
+
+
+FIRST COMMENT (paste this as the first comment on your post):
+
+🔗 Live demo: [YOUR-VERCEL-URL]
+🔗 Source code: https://github.com/Areeshhyycode/AI-Customer-Support-Agent
+Open to feedback — happy to answer questions about the RAG pipeline!
