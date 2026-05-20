@@ -4,7 +4,7 @@ export const EMBEDDING_DIM = 384;
 
 const HF_TOKEN = process.env.HF_TOKEN;
 const HF_MODEL = "sentence-transformers/all-MiniLM-L6-v2";
-const HF_URL = `https://api-inference.huggingface.co/pipeline/feature-extraction/${HF_MODEL}`;
+const HF_URL = `https://router.huggingface.co/hf-inference/models/${HF_MODEL}/pipeline/feature-extraction`;
 
 /**
  * Embeddings have two backends:
@@ -25,10 +25,7 @@ async function hfEmbed(texts: string[]): Promise<number[][]> {
       Authorization: `Bearer ${HF_TOKEN}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      inputs: texts,
-      options: { wait_for_model: true },
-    }),
+    body: JSON.stringify({ inputs: texts }),
   });
 
   if (!res.ok) {
