@@ -1,55 +1,70 @@
-DEMO QUERIES FOR VIDEO RECORDING
+QUESTIONS TO ASK THE AI — Acme Leather Co.
 
-Use these in your demo video. They cover different query types — perfect for showing the AI's range.
+These match the uploaded company-faq.txt. Use them to test the
+support chat and to record your demo video.
 
----
+====================================================
+✅ PRODUCT QUESTIONS  (AI answers with exact prices)
+====================================================
 
-✅ DIRECT ANSWERS (AI should answer confidently from doc)
+1.  How much is the Heritage Bifold Wallet?
+2.  What is the price of the Executive Laptop Bag?
+3.  Which is your cheapest product?
+4.  What is your most expensive item?
+5.  How much does the Leather Bomber Jacket cost?
+6.  Do you sell backpacks?
+7.  What products do you have under PKR 3,000?
 
-1. What is your shipping policy?
-2. Do you ship to the UK?
-3. How can I track my order?
-4. What payment methods do you accept?
-5. What is your warranty policy?
-6. How do I care for leather products?
-7. Where is your office located?
-8. Do you offer gift wrapping?
+====================================================
+✅ POLICY QUESTIONS  (AI answers from the FAQ)
+====================================================
 
----
+8.  What is your shipping policy?
+9.  Do you offer free shipping?
+10. Do you ship internationally?
+11. How can I track my order?
+12. What is your return policy?
+13. What does your warranty cover?
+14. What payment methods do you accept?
+15. Is Cash on Delivery available in Karachi?
+16. How do I care for my leather products?
+17. Do you offer bulk discounts?
 
-🧠 SLIGHTLY HARDER (AI must combine info or infer)
+====================================================
+🧠 SMARTER QUESTIONS  (AI must reason / combine info)
+====================================================
 
-9. I'm in Karachi, when will my order arrive?
-10. Can I pay with cash if I'm ordering a wallet for PKR 3,000?
-11. I bought a belt 2 weeks ago and it has a defective buckle — what should I do?
-12. I want to order 30 wallets for my company employees, what's the discount?
-13. Do you have a store I can visit in Islamabad?
+18. I'm ordering a wallet for PKR 3,500 — will shipping be free?
+19. I'm in Lahore, can I get express delivery?
+20. My belt buckle broke after 2 weeks — what should I do?
+21. I want to order 30 wallets for my office — what discount applies?
+22. Do I need an account just to browse products?
 
----
+====================================================
+🙋 HANDOFF TRIGGERS  (AI escalates → creates a ticket)
+====================================================
 
-🙋 HANDOFF / TICKET TRIGGERS (info not in doc — should escalate)
+23. Who is the CEO of Acme Leather?          (not in the FAQ)
+24. Do you sell leather shoes?               (not a product)
+25. Can I get a discount on a single jacket? (not in the FAQ)
+26. I want to talk to a human agent.         (explicit handoff)
 
-14. Who is the CEO of Acme Leather?
-15. Can I get a refund without a receipt?
-16. Do you make leather shoes? (not in product list)
-17. I want to talk to a human agent
+====================================================
+💬 CONVERSATION MEMORY TEST  (ask in order)
+====================================================
 
----
+27. What is your return policy?
+28. How long does the refund take?      <- AI remembers "return"
+29. And what if my order is international?
 
-💬 CONVERSATION MEMORY TEST (ask in order)
+====================================================
+🎬 BEST 5 FOR A 60-SECOND DEMO VIDEO
+====================================================
 
-18. What's your return policy?
-19. How long does it take?  ← AI should remember "return" from previous Q
-20. And what if I'm international?  ← AI should still be in return-policy context
+1. "How much is the Executive Laptop Bag?"   -> exact price answer
+2. "What is your shipping policy?"            -> policy answer
+3. "I'm in Lahore, can I get express delivery?" -> reasoning
+4. "Who is the CEO of Acme Leather?"          -> handoff + ticket
+5. "I want to talk to a human agent."         -> escalation
 
----
-
-🎬 RECOMMENDED VIDEO SEQUENCE (for 60-sec demo):
-
-1. "What is your shipping policy?" → shows working RAG
-2. "I'm in Karachi, when will my order arrive?" → shows AI inference
-3. "Who is your CEO?" → shows handoff + ticket creation
-4. "I want to talk to a human" → explicit escalation
-5. Then go to admin → show tickets created
-
-This sequence demos: retrieval, reasoning, handoff, and ticketing — the 4 core features.
+Then open /admin and show the tickets that were created.
